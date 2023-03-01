@@ -445,10 +445,11 @@ class ChartingState extends MusicBeatState
 
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
+			var saveName = Paths.modsJson(songName);
 			#if sys
 			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
 			#else
-			if (OpenFlAssets.exists(file))
+			if (OpenFlAssets.exists(file));
 			#end
 			{
 				clearEvents();
@@ -469,6 +470,13 @@ class ChartingState extends MusicBeatState
 			});
 		clear_events.color = FlxColor.RED;
 		clear_events.label.color = FlxColor.WHITE;
+		
+		var quickButton:FlxButton = new FlxButton(saveButton.x, loadAutosaveBtn.y, 'Quick Save', function()
+			{
+				quickSave();
+			});
+		quickButton.color = FlxColor.GRAY;
+		quickButton.label.color = FlxColor.BLACK;
 
 		var clear_notes:FlxButton = new FlxButton(320, clear_events.y + 30, 'Clear notes', function()
 			{
@@ -477,7 +485,7 @@ class ChartingState extends MusicBeatState
 				}
 				updateGrid();
 			}, null,ignoreWarnings));
-
+	
 			});
 		clear_notes.color = FlxColor.RED;
 		clear_notes.label.color = FlxColor.WHITE;
@@ -612,6 +620,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(check_voices);
 		tab_group_song.add(clear_events);
 		tab_group_song.add(clear_notes);
+		tab_group_song.add(quickButton);
 		tab_group_song.add(saveButton);
 		tab_group_song.add(saveEvents);
 		tab_group_song.add(reloadSong);
@@ -2989,6 +2998,26 @@ class ChartingState extends MusicBeatState
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 			_file.save(data.trim(), Paths.formatToSongPath(_song.song) + ".json");
 		}
+	}
+
+	private function quickSave()
+	{
+        var path:String;
+		
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0) {
+			path = Paths.formatToSongName("mods/" + Paths.currentModDirectory + "/data/" + currentSongName + "/" + currentSongName) + ".json";
+		} else {
+			path = Paths.formatToSongName("assets/data/" + currentSongName + "/" + currentSongName) + ".json";
+		}
+		
+		if(_song.events != null && _song.events.length > 1) _song.events.sort(sortByTime);
+		var json = {
+			"song": _song
+		};
+		var data:String = Json.stringify(json, "\t");
+
+		File.saveContent(path, data.trim());
+		//Made By MC07 With Help From Sharif And Reviewed By Aaron
 	}
 
 	function sortByTime(Obj1:Array<Dynamic>, Obj2:Array<Dynamic>):Int

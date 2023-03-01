@@ -331,6 +331,14 @@ class Paths
 		#end
 	}
 
+	inline static public function formatToSongName(path:String) {
+		var invalidChars = ~/[~&\\;:<>#]/;
+		var hideChars = ~/[.,'"%?!]/;
+
+		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+		return hideChars.split(path).join("").toLowerCase();
+	}	
+
 	inline static public function formatToSongPath(path:String) {
 		var invalidChars = ~/[~&\\;:<>#]/;
 		var hideChars = ~/[.,'"%?!]/;
