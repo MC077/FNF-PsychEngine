@@ -25,7 +25,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = 'MC07'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -33,13 +33,13 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
-		'options'
+		'options',
+		'story_mode'
 	];
 
 	var magenta:FlxSprite;
@@ -56,7 +56,7 @@ class MainMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("Fuck you Zemp :]", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
@@ -118,7 +118,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			menuItem.x = 100;
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -126,6 +126,14 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+			
+			var menuChar:FlxSprite = new FlxSprite(775, 175);
+			menuChar.frames = Paths.getSparrowAtlas('BOYFRIEND');
+			menuChar.animation.addByPrefix('idle', "BF idle dance", 24);
+			menuChar.animation.play('idle');
+			menuChar.scrollFactor.set(0, 0);
+			menuChar.antialiasing = false;
+			add(menuChar);
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
@@ -268,7 +276,6 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
 		});
 	}
 
