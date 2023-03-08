@@ -36,6 +36,7 @@ import flixel.animation.FlxAnimation;
 
 #if MODS_ALLOWED
 import sys.FileSystem;
+import sys.io.File;
 #end
 
 using StringTools;
@@ -438,6 +439,8 @@ class CharacterEditorState extends MusicBeatState
 		charDropDown.selectedLabel = daAnim;
 		reloadCharacterDropDown();
 
+		
+
 		var reloadCharacter:FlxButton = new FlxButton(140, 20, "Reload Char", function()
 		{
 			loadChar(!check_player.checked);
@@ -568,13 +571,20 @@ class CharacterEditorState extends MusicBeatState
 		positionCameraXStepper = new FlxUINumericStepper(positionXStepper.x, positionXStepper.y + 40, 10, char.cameraPosition[0], -9000, 9000, 0);
 		positionCameraYStepper = new FlxUINumericStepper(positionYStepper.x, positionYStepper.y + 40, 10, char.cameraPosition[1], -9000, 9000, 0);
 
-		var saveCharacterButton:FlxButton = new FlxButton(reloadImage.x, noAntialiasingCheckBox.y + 40, "Save Character", function() {
+		var saveCharacterButton:FlxButton = new FlxButton(reloadImage.x, noAntialiasingCheckBox.y + 25, "Save Character", function() {
 			saveCharacter();
 		});
+		
+		var quickButton:FlxButton = new FlxButton(reloadImage.x, noAntialiasingCheckBox.y + 50, 'Quick Save', function()
+			{
+				quickSave();
+			});
+		quickButton.color = FlxColor.GRAY;
+		quickButton.label.color = FlxColor.BLACK;
 
-		healthColorStepperR = new FlxUINumericStepper(singDurationStepper.x, saveCharacterButton.y, 20, char.healthColorArray[0], 0, 255, 0);
-		healthColorStepperG = new FlxUINumericStepper(singDurationStepper.x + 65, saveCharacterButton.y, 20, char.healthColorArray[1], 0, 255, 0);
-		healthColorStepperB = new FlxUINumericStepper(singDurationStepper.x + 130, saveCharacterButton.y, 20, char.healthColorArray[2], 0, 255, 0);
+		healthColorStepperR = new FlxUINumericStepper(singDurationStepper.x, saveCharacterButton.y + 10, 20, char.healthColorArray[0], 0, 255, 0);
+		healthColorStepperG = new FlxUINumericStepper(singDurationStepper.x + 65, saveCharacterButton.y + 10, 20, char.healthColorArray[1], 0, 255, 0);
+		healthColorStepperB = new FlxUINumericStepper(singDurationStepper.x + 130, saveCharacterButton.y + 10, 20, char.healthColorArray[2], 0, 255, 0);
 
 		tab_group.add(new FlxText(15, imageInputText.y - 18, 0, 'Image file name:'));
 		tab_group.add(new FlxText(15, healthIconInputText.y - 18, 0, 'Health icon name:'));
@@ -599,6 +609,7 @@ class CharacterEditorState extends MusicBeatState
 		tab_group.add(healthColorStepperG);
 		tab_group.add(healthColorStepperB);
 		tab_group.add(saveCharacterButton);
+		tab_group.add(quickButton);
 		UI_characterbox.addGroup(tab_group);
 	}
 
@@ -1299,6 +1310,37 @@ class CharacterEditorState extends MusicBeatState
 		}
 	}
 
+	private function quickSave()
+	{
+		var path:String;
+		
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0) {
+			path = ("mods/" + Paths.currentModDirectory + "/characters/" + daAnim) + ".json";
+		} else {
+			path = ("assets/characters/"  + daAnim) + ".json";
+		}
+		
+		var json = {
+			"animations": char.animationsArray,
+			"image": char.imageFile,
+			"scale": char.jsonScale,
+			"sing_duration": char.singDuration,
+			"healthicon": char.healthIcon,
+
+			"position":	char.positionArray,
+			"camera_position": char.cameraPosition,
+
+			"flip_x": char.originalFlipX,
+			"no_antialiasing": char.noAntialiasing,
+			"healthbar_colors": char.healthColorArray
+		};
+
+		var data:String = Json.stringify(json, "\t");
+		
+		File.saveContent(path, data.trim());
+		//Made By MC07 With Help From Sharif And Reviewed By Aaron
+	}
+	
 	function ClipboardAdd(prefix:String = ''):String {
 		if(prefix.toLowerCase().endsWith('v')) //probably copy paste attempt
 		{

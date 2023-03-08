@@ -44,9 +44,8 @@ typedef AnimArray = {
 	var offsets:Array<Int>;
 }
 
-class Global; {
-	class Character extends FlxSprite
-	{
+class Character extends FlxSprite
+{
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
 
@@ -418,5 +417,4 @@ class Global; {
 	{
 		animation.addByPrefix(name, anim, 24, false);
 	}
-}
 }

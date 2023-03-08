@@ -20,7 +20,6 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
-import Global.*;
 
 using StringTools;
 
@@ -34,13 +33,13 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
+		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
-		'options',
-		'story_mode'
+		'options'
 	];
 
 	var magenta:FlxSprite;
@@ -133,7 +132,7 @@ class MainMenuState extends MusicBeatState
 			menuChar.animation.addByPrefix('idle', "BF idle dance", 24);
 			menuChar.animation.play('idle');
 			menuChar.scrollFactor.set(0, 0);
-			menuChar.antialiasing = false;
+			menuChar.antialiasing = true;
 			add(menuChar);
 		}
 
