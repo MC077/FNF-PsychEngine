@@ -46,6 +46,7 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var menubf:FlxSprite;
 
 	override function create()
 	{
@@ -97,6 +98,13 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 		
+		menubf = new FlxSprite(775, 175);
+		menubf.frames = Paths.getSparrowAtlas('characters/BOYFRIENDFIXED', "shared");
+		menubf.animation.addByPrefix('idle', "BF idle dance", 24, false);
+		menubf.scrollFactor.set(0, 0);
+		menubf.antialiasing = true;
+		add(menubf);
+
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -106,7 +114,7 @@ class MainMenuState extends MusicBeatState
 		/*if(optionShit.length > 6) {
 			scale = 6 / optionShit.length;
 		}*/
-		
+
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
@@ -159,15 +167,7 @@ class MainMenuState extends MusicBeatState
 
 		super.create();
 	}
-
-	var menubf:FlxSprite;
-	menubf = new FlxSprite(755, 135);
-	menubf.frames = Paths.getSparrowAtlas('characters/Encore BF', "shared");
-	menubf.animation.addByPrefix('idle', "Idle", 24);
-	menubf.scrollFactor.set(0, 0);
-	menubf.antialiasing = true;
-	add(menubf);
-
+	
 	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
 	public static var closedState:Bool = false;
 	override function beatHit()
@@ -175,19 +175,6 @@ class MainMenuState extends MusicBeatState
 		super.beatHit();
 		menubf.animation.play('idle');
 	};
-
-	public static var closedState:Bool = false;
-	override function beatHit()
-	{
-		var menubf:FlxSprite = new FlxSprite(775, 175);
-		menubf.frames = Paths.getSparrowAtlas('characters/BOYFRIENDFIXED', "shared");
-		menubf.animation.addByPrefix('idle', "BF idle dance", 24);
-		menubf.scrollFactor.set(0, 0);
-		menubf.antialiasing = true;
-		add(menubf);
-		super.beatHit();
-		menubf.animation.play('idle');
-	}
 
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
