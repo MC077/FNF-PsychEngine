@@ -106,7 +106,7 @@ class MainMenuState extends MusicBeatState
 		/*if(optionShit.length > 6) {
 			scale = 6 / optionShit.length;
 		}*/
-
+		
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
@@ -126,26 +126,19 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
-			
-			var menuChar:FlxSprite = new FlxSprite(775, 175);
-			menuChar.frames = Paths.getSparrowAtlas('BOYFRIEND');
-			menuChar.animation.addByPrefix('idle', "BF idle dance", 24);
-			menuChar.animation.play('idle');
-			menuChar.scrollFactor.set(0, 0);
-			menuChar.antialiasing = true;
-			add(menuChar);
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Source Coded By ", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
+		
+		var MC07:FlxText = new FlxText(156, FlxG.height - 24, 0, psychEngineVersion, 50);
+		MC07.scrollFactor.set();
+		MC07.setFormat("VCR OSD Mono", 16, FlxColor.RED, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(MC07);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -165,6 +158,35 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
+	}
+
+	var menubf:FlxSprite;
+	menubf = new FlxSprite(755, 135);
+	menubf.frames = Paths.getSparrowAtlas('characters/Encore BF', "shared");
+	menubf.animation.addByPrefix('idle', "Idle", 24);
+	menubf.scrollFactor.set(0, 0);
+	menubf.antialiasing = true;
+	add(menubf);
+
+	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
+	public static var closedState:Bool = false;
+	override function beatHit()
+	{
+		super.beatHit();
+		menubf.animation.play('idle');
+	};
+
+	public static var closedState:Bool = false;
+	override function beatHit()
+	{
+		var menubf:FlxSprite = new FlxSprite(775, 175);
+		menubf.frames = Paths.getSparrowAtlas('characters/BOYFRIENDFIXED', "shared");
+		menubf.animation.addByPrefix('idle', "BF idle dance", 24);
+		menubf.scrollFactor.set(0, 0);
+		menubf.antialiasing = true;
+		add(menubf);
+		super.beatHit();
+		menubf.animation.play('idle');
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
