@@ -104,6 +104,7 @@ class MainMenuState extends MusicBeatState
 		menubf.scrollFactor.set(0, 0);
 		menubf.antialiasing = true;
 		add(menubf);
+		menubf.animation.play(idle)
 
 		// magenta.scrollFactor.set();
 
@@ -168,14 +169,6 @@ class MainMenuState extends MusicBeatState
 		super.create();
 	}
 	
-	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
-	public static var closedState:Bool = false;
-	override function beatHit()
-	{
-		super.beatHit();
-		menubf.animation.play('idle');
-	};
-
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
 	function giveAchievement() {
