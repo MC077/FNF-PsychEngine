@@ -104,7 +104,7 @@ class MainMenuState extends MusicBeatState
 		menubf.scrollFactor.set(0, 0);
 		menubf.antialiasing = true;
 		add(menubf);
-		menubf.animation.play(idle)
+		menubf.animation.play('idle');
 
 		// magenta.scrollFactor.set();
 
