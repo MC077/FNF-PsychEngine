@@ -99,7 +99,7 @@ class MainMenuState extends MusicBeatState
 		add(magenta);
 		
 		menubf = new FlxSprite(775, 175);
-		menubf.frames = Paths.getSparrowAtlas('characters/BOYFRIENDFIXED', "shared");
+		menubf.frames = Paths.getSparrowAtlas('characters${ClientPrefs.boyfriendSkin}', "shared");
 		menubf.animation.addByPrefix('idle', "BF idle dance", 24, false);
 		menubf.scrollFactor.set(0, 0);
 		menubf.antialiasing = true;
