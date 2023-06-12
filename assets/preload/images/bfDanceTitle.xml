@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="bfDanceTitle.png">
+	<!-- Created with Adobe Animate version 23.0.2.103 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="BF idle dance0000" x="0" y="0" width="419" height="398" frameX="-4" frameY="-20" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0001" x="0" y="0" width="419" height="398" frameX="-4" frameY="-20" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0002" x="423" y="0" width="421" height="399" frameX="-3" frameY="-19" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0003" x="423" y="0" width="421" height="399" frameX="-3" frameY="-19" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0004" x="848" y="0" width="420" height="404" frameX="-2" frameY="-14" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0005" x="848" y="0" width="420" height="404" frameX="-2" frameY="-14" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0006" x="1272" y="0" width="423" height="417" frameX="0" frameY="-1" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0007" x="1272" y="0" width="423" height="417" frameX="0" frameY="-1" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0008" x="0" y="421" width="423" height="418" frameX="0" frameY="0" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0009" x="0" y="421" width="423" height="418" frameX="0" frameY="0" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0010" x="0" y="421" width="423" height="418" frameX="0" frameY="0" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0011" x="0" y="421" width="423" height="418" frameX="0" frameY="0" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0012" x="0" y="421" width="423" height="418" frameX="0" frameY="0" frameWidth="424" frameHeight="418"/>
+	<SubTexture name="BF idle dance0013" x="0" y="421" width="423" height="418" frameX="0" frameY="0" frameWidth="424" frameHeight="418"/>
+</TextureAtlas>

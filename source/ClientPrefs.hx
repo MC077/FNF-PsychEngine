@@ -88,6 +88,8 @@ class ClientPrefs {
 	];
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
 
+	public static var boy:String = 'gf';
+
 	public static function loadDefaultKeys() {
 		defaultKeys = keyBinds.copy();
 		//trace(defaultKeys);
@@ -130,6 +132,8 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
+
+		FlxG.save.data.boy = boy;
 	
 		FlxG.save.flush();
 
@@ -265,7 +269,13 @@ class ClientPrefs {
 			checkForUpdates = FlxG.save.data.checkForUpdates;
 		}
 		if (FlxG.save.data.comboStacking != null)
+		{
 			comboStacking = FlxG.save.data.comboStacking;
+		}
+		if (FlxG.save.data.boy != null)
+		{
+			boy = FlxG.save.data.boy;
+		}
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', CoolUtil.getSavePath());

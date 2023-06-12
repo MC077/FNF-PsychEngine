@@ -46,6 +46,8 @@ typedef TitleData =
 	starty:Float,
 	gfx:Float,
 	gfy:Float,
+	bfx:Float,
+	bfy:Float,
 	backgroundSprite:String,
 	bpm:Int
 }
@@ -221,6 +223,7 @@ class TitleState extends MusicBeatState
 
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
+	var bfDance:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
@@ -320,8 +323,16 @@ class TitleState extends MusicBeatState
 
 		add(gfDance);
 		gfDance.shader = swagShader.shader;
+
 		add(logoBl);
 		logoBl.shader = swagShader.shader;
+
+		bfDance = new FlxSprite(titleJSON.bfx, titleJSON.bfy);
+		bfDance.frames = Paths.getSparrowAtlas('bfDanceTitle');
+		bfDance.animation.addByPrefix('idle', "BF idle dance", 24, false);
+		bfDance.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bfDance);
+		bfDance.shader = swagShader.shader;
 
 		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
 		#if (desktop && MODS_ALLOWED)
@@ -610,6 +621,9 @@ class TitleState extends MusicBeatState
 
 		if(logoBl != null)
 			logoBl.animation.play('bump', true);
+
+		if(bfDance != null)
+			bfDance.animation.play('idle', true);
 
 		if(gfDance != null) {
 			danceLeft = !danceLeft;

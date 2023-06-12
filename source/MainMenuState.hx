@@ -46,7 +46,7 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-	var menubf:FlxSprite;
+	var menubf:Character;
 
 	override function create()
 	{
@@ -54,6 +54,8 @@ class MainMenuState extends MusicBeatState
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
+
+		trace(ClientPrefs.boy);
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -97,14 +99,18 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
+		menubf = new Character(775, 175, ClientPrefs.boy);
+		menubf.scrollFactor.set(0,0);
+		add(menubf);
 		
-		menubf = new FlxSprite(775, 175);
+		/* menubf = new FlxSprite(775, 175);
 		menubf.frames = Paths.getSparrowAtlas('characters/BOYFRIENDFIXED', "shared");
 		menubf.animation.addByPrefix('idle', "BF idle dance", 24, false);
 		menubf.scrollFactor.set(0, 0);
 		menubf.antialiasing = true;
 		add(menubf);
-		menubf.animation.play('idle');
+		menubf.animation.play('idle'); */
 
 		// magenta.scrollFactor.set();
 
@@ -306,5 +312,13 @@ class MainMenuState extends MusicBeatState
 				spr.centerOffsets();
 			}
 		});
+	}
+
+	override public function beatHit()
+	{
+		super.beatHit();
+
+		menubf.dance();
+		
 	}
 }

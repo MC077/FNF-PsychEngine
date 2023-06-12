@@ -973,6 +973,9 @@ class PlayState extends MusicBeatState
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
 
+		ClientPrefs.boy = SONG.player1;
+		ClientPrefs.saveSettings();
+
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
 		{
@@ -2552,6 +2555,7 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
+				
 
 			case 'Dadbattle Spotlight':
 				dadbattleBlack = new BGSprite(null, -800, -400, 0, 0);
@@ -3688,8 +3692,13 @@ class PlayState extends MusicBeatState
 						if(boyfriend.curCharacter != value2) {
 							if(!boyfriendMap.exists(value2)) {
 								addCharacterToList(value2, charType);
+								ClientPrefs.boy = value2;
+								ClientPrefs.saveSettings();
 							}
 
+							ClientPrefs.boy = 'bf';
+							ClientPrefs.saveSettings();
+							
 							var lastAlpha:Float = boyfriend.alpha;
 							boyfriend.alpha = 0.00001;
 							boyfriend = boyfriendMap.get(value2);
