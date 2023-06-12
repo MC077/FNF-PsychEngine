@@ -46,7 +46,6 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-	var menubf:Character;
 
 	override function create()
 	{
@@ -100,8 +99,14 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 
-		menubf = new Character(775, 175, ClientPrefs.boy);
-		menubf.scrollFactor.set(0,0);
+		var menubf:Boyfriend;
+		if (ClientPrefs.boy == null)
+		menubf = new Boyfriend(775, 175, 'bf');
+		else
+		menubf = new Boyfriend(775, 175, ClientPrefs.boy);
+
+		menubf.scrollFactor.set(0, 0);
+		menubf.flipX = true;
 		add(menubf);
 		
 		/* menubf = new FlxSprite(775, 175);
@@ -150,7 +155,7 @@ class MainMenuState extends MusicBeatState
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 		
-		var MC07:FlxText = new FlxText(156, FlxG.height - 24, 0, psychEngineVersion, 50);
+		var MC07:FlxText = new FlxText(156, FlxG.height - 24, 0, "MC07", 50);
 		MC07.scrollFactor.set();
 		MC07.setFormat("VCR OSD Mono", 16, FlxColor.RED, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(MC07);
@@ -316,9 +321,7 @@ class MainMenuState extends MusicBeatState
 
 	override public function beatHit()
 	{
-		super.beatHit();
-
 		menubf.dance();
+	} 
 		
-	}
 }
